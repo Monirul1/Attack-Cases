@@ -1,0 +1,34 @@
+##################################################################
+# CASE 3: Test to check if the file is able to read even with negative bytes
+# RESULTS (attacked 5 reference monitors): 2 FAILED 
+# TESTING FOR ACCURACY
+##################################################################
+
+# Remove existing Files
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+# Open File
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+
+# Write valid data to the file
+myfile.writeat("SmonirulE",0)
+
+#Close the file
+myfile.close()
+
+# READ OPERATION
+# Reopen file again to read
+myfile=ABopenfile("testfile.txt",True)
+
+# Read data from the file
+try:
+  myfile.readat(-9,0)
+except RepyArgumentError:
+  pass
+else:
+  log("Read is being allowed in the file with negative byte value \n")
+#Close the file
+myfile.close()

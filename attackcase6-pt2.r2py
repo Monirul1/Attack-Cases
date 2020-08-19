@@ -1,0 +1,27 @@
+##################################################################
+# CASE 6: Test to check if valid data can be overwrriten 
+# RESULTS (attacked 5 reference monitors): 4 FAILED 
+# TESTING FOR ACCURACY
+##################################################################
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+# Open File Function Call
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+
+myfile.writeat("SmonirulE",0)
+myfile.writeat("SmonirultestE",0)	
+myfile.close()
+
+myfile=ABopenfile("testfile.txt",True)
+
+try:
+ assert('SmonirultestE' == myfile.readat(None,0))
+ myfile.close()
+except:
+ myfile.close()
+ log("Valid data overwrriten into a file is unsuccessfull \n")

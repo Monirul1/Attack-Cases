@@ -1,0 +1,34 @@
+##################################################################
+# CASE 1: Test to check integrity of contents of a file previously written to by the user
+# RESULTS (attacked 5 reference monitors): 0 FAILED 
+# TESTING FOR ACCURACY
+##################################################################
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+# Open File Function Call
+myfile=ABopenfile("testfile.txt",True) 
+
+# Write valid data to the file
+myfile.writeat("StestingE",0)
+
+#Close the file
+myfile.close()
+
+# READ OPERATION
+# Reopen file again to read
+myfile=ABopenfile("testfile.txt",True)
+
+# Read the file to check the contents
+try:
+ assert('StestingE' == myfile.readat(None,0))
+#Close the file
+ myfile.close()
+except:
+ #Close the file
+ myfile.close()
+ log("Security layer does not maintain the integrity of contents of a file previously written to by user")

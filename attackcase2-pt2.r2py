@@ -1,0 +1,34 @@
+##################################################################
+# CASE 2: Test to check if valid written data has been retained while invalid is discarded
+# RESULTS (attacked 5 reference monitors): 1 FAILED 
+# TESTING FOR SECURITY
+##################################################################
+
+# Clean up of existing file
+if "testfile.txt.a" in listfiles():
+  removefile("testfile.txt.a")
+if "testfile.txt.b" in listfiles():
+  removefile("testfile.txt.b")
+
+# Open File Function Call
+myfile=ABopenfile("testfile.txt",True)  #Create an AB file
+
+# Write invalid data to the file
+myfile.writeat("Monirul_Test",0)
+
+#Close the file
+myfile.close()
+
+# READ OPERATION
+# Reopen file again to read
+myfile=ABopenfile("testfile.txt",True)
+
+# Read the file to check the contents
+try:
+ assert('SE' == myfile.readat(2,0))
+ #Close the file
+ myfile.close()
+except:
+ #Close the file
+ myfile.close()
+ log("Valid Data written in the File has not been retained")

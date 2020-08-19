@@ -1,0 +1,58 @@
+##################################################################
+# CASE 4: Test to check if multiple valid file can be handled (ie, written, read, and closed)
+# RESULTS (attacked 5 reference monitors): 3 FAILED 
+# TESTING FOR ACCURACY
+##################################################################
+
+# Clean up of existing file
+if "testFile1.txt.a" in listfiles():
+  removefile("testFile1.txt.a")
+if "testFile1.txt.b" in listfiles():
+  removefile("testFile1.txt.b")
+
+if "testFile2.txt.a" in listfiles():
+  removefile("testFile2.txt.a")
+if "testFile2.txt.b" in listfiles():
+  removefile("testFile2.txt.b")
+
+if "testFile3.txt.a" in listfiles():
+  removefile("testFile3.txt.a")
+if "testFile3.txt.b" in listfiles():
+  removefile("testFile3.txt.b")
+
+# Open File Function Call
+testFile1=ABopenfile("testFile1.txt",True)  #Create an AB file1
+testFile2=ABopenfile("testFile2.txt",True)  #Create an AB file2
+testFile3=ABopenfile("testFile3.txt",True)  #Create an AB file3
+
+# Write valid data to the file
+testFile1.writeat("Stest1E",0)
+testFile2.writeat("Stest2E",0)
+testFile3.writeat("Stest3E",0)
+
+#Close the file
+testFile1.close()
+testFile2.close()
+testFile3.close()
+
+# Open File Function Call
+testFile1=ABopenfile("testFile1.txt",True)  #Create an AB file1
+testFile2=ABopenfile("testFile2.txt",True)  #Create an AB file2
+testFile3=ABopenfile("testFile3.txt",True)  #Create an AB file3
+
+
+# Read the file to check the contents
+try:
+ assert('Stest1E' == testFile1.readat(7,0))
+ assert('Stest2E' == testFile2.readat(7,0))
+ assert('Stest3E' == testFile3.readat(7,0))
+ #Close the file
+ testFile1.close()
+ testFile2.close()
+ testFile3.close()
+except:
+ #Close the file
+ testFile1.close()
+ testFile2.close()
+ testFile3.close()
+ log("Multiple valid file handling is unsuccessful \n")
